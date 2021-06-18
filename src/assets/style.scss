@@ -8,6 +8,14 @@ $darkColor: #303030;
   header {
     grid-column: 2/3;
     grid-row: 1/2;
+
+    nav {
+      text-align: right;
+
+      a {
+        padding: 12px;
+      }
+    }
   }
 
   main {
@@ -15,12 +23,14 @@ $darkColor: #303030;
     grid-row: 2/3;
 
     table {
+      margin-top: 24px;
       border-collapse: collapse;
-      thead {
-        tr {
-          th {
-            border: 1px solid $darkColor;
-          }
+
+      tr {
+        th,
+        td {
+          padding: 8px;
+          border: 1px solid $darkColor;
         }
       }
     }
