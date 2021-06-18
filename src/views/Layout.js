@@ -5,7 +5,6 @@ const Layout = (props) => {
   return (
     <>
       <header>
-        {/* <Nav /> */}
         <h1>{props.title}</h1>
         <Nav />
       </header>
