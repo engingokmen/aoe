@@ -1,0 +1,28 @@
+$darkColor: #303030;
+
+#root {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, auto);
+
+  header {
+    grid-column: 2/3;
+    grid-row: 1/2;
+  }
+
+  main {
+    grid-column: 2/3;
+    grid-row: 2/3;
+
+    table {
+      border-collapse: collapse;
+      thead {
+        tr {
+          th {
+            border: 1px solid $darkColor;
+          }
+        }
+      }
+    }
+  }
+}
