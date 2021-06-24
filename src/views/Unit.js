@@ -16,7 +16,7 @@ const Unit = () => {
   const action = (type, payload) => store.dispatch({ type, payload });
 
   function onRadioChange(e) {
-    action("AgeFilterChanged", e.target.value);
+    action("AGE_CHANGE", e.target.value);
   }
 
   const radioGroup = Object.entries(ageFilter).map(([property, value]) => (

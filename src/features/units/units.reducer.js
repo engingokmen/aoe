@@ -35,14 +35,15 @@ export const selectFilteredUnits = createSelector(
   (state) => state.filters,
   // Output selector: receives both values
   (units, filters) => {
-    const { age, costs } = filters;
-    const showAllAges = age === AgeFilter.All;
-    if (showAllAges && Object.entries(costs).length === 0) {
+    const { ageFilter, costsFilter } = filters;
+    const showAllAges = ageFilter === AgeFilter.All;
+    if (showAllAges && Object.entries(costsFilter).length === 0) {
       return units;
     }
 
     return units.filter((unit) => {
-      const ageMatches = unit.age === "All" || unit.age === age;
+      console.log(unit.age, ageFilter);
+      const ageMatches = ageFilter === "All" || unit.age === ageFilter;
 
       function costMatches(filterCosts) {
         return Object.keys(filterCosts).length === 0
@@ -64,9 +65,12 @@ export const selectFilteredUnits = createSelector(
             };
       }
 
-      console.log(age, unit.age, ageMatches);
-
-      const costMatchesUnitCost = costMatches(costs);
+      const costMatchesUnitCost = costMatches(costsFilter);
+      // console.log(
+      //   costMatchesUnitCost(unit.cost),
+      //   ageMatches,
+      //   ageMatches && costMatchesUnitCost(unit.cost)
+      // );
       return ageMatches && costMatchesUnitCost(unit.cost);
     });
   }

@@ -13,22 +13,25 @@ export const CostFilter = {
 };
 
 const initialState = {
-  age: AgeFilter.All,
-  costs: {},
+  ageFilter: AgeFilter.All,
+  costsFilter: {},
 };
 
 export default function filter(state = initialState, action) {
   switch (action.type) {
-    case "AgeFilterChanged": {
-      return { ...state, age: action.payload };
+    case "AgeChange": {
+      console.log(action.payload.payload);
+      return { ...state, ageFilter: action.payload.payload };
     }
     case "CostFilterChanged": {
       let { cost, changeType } = action.payload;
-      const { costs } = state;
+      const { costsFilter } = state;
       switch (changeType) {
         case "Added": {
           if (
-            Object.entries(costs).findIndex(([key, value]) => key === cost) > -1
+            Object.entries(costsFilter).findIndex(
+              ([key, value]) => key === cost
+            ) > -1
           ) {
             // This cost already is set as a filter. Don't change the state.
             return state;
@@ -36,14 +39,16 @@ export default function filter(state = initialState, action) {
 
           return {
             ...state,
-            costs: { ...costs, [cost]: CostFilter[cost].default },
+            costsFilter: { ...costsFilter, [cost]: CostFilter[cost].default },
           };
         }
         case "Removed": {
           return {
             ...state,
-            costs: Object.fromEntries(
-              Object.entries(state.costs).filter(([key, value]) => key !== cost)
+            costsFilter: Object.fromEntries(
+              Object.entries(state.costsFilter).filter(
+                ([key, value]) => key !== cost
+              )
             ),
           };
         }
@@ -53,7 +58,7 @@ export default function filter(state = initialState, action) {
     }
     case "RangeChanged": {
       if (
-        Object.entries(state.costs).findIndex(
+        Object.entries(state.costsFilter).findIndex(
           ([key, value]) => key === action.payload.cost
         ) === -1
       ) {
@@ -61,8 +66,8 @@ export default function filter(state = initialState, action) {
       }
       return {
         ...state,
-        costs: {
-          ...state.costs,
+        costsFilter: {
+          ...state.costsFilter,
           [action.payload.cost]: action.payload.costValue,
         },
       };
@@ -72,5 +77,5 @@ export default function filter(state = initialState, action) {
   }
 }
 
-export const selectAge = (state) => state.filters.age;
-export const selectCosts = (state) => state.filters.costs;
+export const selectAge = (state) => state.filters.ageFilter;
+export const selectCosts = (state) => state.filters.costsFilter;
